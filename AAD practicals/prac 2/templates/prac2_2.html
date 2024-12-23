@@ -1,0 +1,28 @@
+<html>
+  <body>
+    {{ plot | safe }}
+    <h2>Comparison Table</h2>
+    <table border="4">
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Recursive Value</th>
+          <th>Recursive Steps</th>
+          <th>Iterative Value</th>
+          <th>Iterative Steps</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in range(months|length) %}
+        <tr>
+          <td>{{ months[i] }}</td>
+          <td>{{ recursive_values[i] }}</td>
+          <td>{{ recursive_steps[i] }}</td>
+          <td>{{ iterative_values[i] }}</td>
+          <td>{{ iterative_steps[i] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

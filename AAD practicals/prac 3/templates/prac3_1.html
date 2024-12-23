@@ -1,0 +1,26 @@
+<html>
+  <body>
+    {{plot|safe}}
+    <h2>Comparison of Sorting Algorithms</h2>
+    <table border="4">
+      <thead>
+        <tr>
+          <th>Number of Elements</th>
+          <th>Selection Sort Time</th>
+          <th>Insertion Sort Time</th>
+          <th>Bubble Sort Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in range(sizes|length) %}
+        <tr>
+          <td>{{ sizes[i] }}</td>
+          <td>{{ selection_times[i] }}</td>
+          <td>{{ insertion_times[i] }}</td>
+          <td>{{ bubble_times[i] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortest Path Finder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Shortest Path Finder</h1>
+
+            <form method="post" action="/">
+                <div class="field">
+                    <label class="label">Number of Nodes</label>
+                    <input class="input" type="number" id="num_nodes" name="num_nodes" placeholder="e.g., 5" required>
+                </div>
+
+                <div id="nodes-container"></div>
+
+                <div class="field">
+                    <label class="label">Number of Edges</label>
+                    <input class="input" type="number" id="num_edges" name="num_edges" placeholder="e.g., 6" required>
+                </div>
+
+                <div id="edges-container"></div>
+
+                <div class="field">
+                    <label class="label">Source Node</label>
+                    <input class="input" type="text" name="source_node" placeholder="e.g., A" required>
+                </div>
+
+                <div class="control">
+                    <button class="button is-primary" type="submit">Calculate Shortest Path</button>
+                </div>
+            </form>
+
+            {% if shortest_paths %}
+            <h2 class="subtitle mt-4">Shortest Paths from Node {{ source_node }}:</h2>
+            <table class="table is-striped is-bordered">
+                <thead>
+                    <tr>
+                        <th>Destination</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for node, distance in shortest_paths.items() %}
+                    <tr>
+                        <td>{{ node }}</td>
+                        <td>{{ distance }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nodesContainer = document.getElementById('nodes-container');
+            const edgesContainer = document.getElementById('edges-container');
+            const numNodesInput = document.getElementById('num_nodes');
+            const numEdgesInput = document.getElementById('num_edges');
+
+            // Add input fields for nodes based on the number of nodes
+            numNodesInput.addEventListener('change', () => {
+                nodesContainer.innerHTML = ''; // Clear previous inputs
+                const numNodes = parseInt(numNodesInput.value);
+
+                for (let i = 0; i < numNodes; i++) {
+                    nodesContainer.innerHTML += `
+                        <div class="field">
+                            <label class="label">Node ${i + 1}</label>
+                            <input class="input" type="text" name="node_${i}" placeholder="Enter node name, e.g., A" required>
+                        </div>`;
+                }
+            });
+
+            // Dynamically add edge input fields based on number of edges
+            numEdgesInput.addEventListener('change', () => {
+                edgesContainer.innerHTML = ''; // Clear previous inputs
+                const numEdges = parseInt(numEdgesInput.value);
+
+                for (let i = 0; i < numEdges; i++) {
+                    edgesContainer.innerHTML += `
+                        <div class="field">
+                            <label class="label">Edge ${i + 1}</label>
+                            <div class="control">
+                                <input class="input" type="text" name="edge_${i}_source" placeholder="Source Node" required>
+                                <input class="input" type="text" name="edge_${i}_destination" placeholder="Destination Node" required>
+                                <input class="input" type="number" name="edge_${i}_weight" placeholder="Weight" required>
+                            </div>
+                        </div>`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

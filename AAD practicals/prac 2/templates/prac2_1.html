@@ -1,0 +1,22 @@
+<html>
+  <body>
+    {{ graph_div|safe }}
+    <h2>Complexity Values Table</h2>
+    <table border="4">
+      <tr>
+        <th>n</th>
+        <th>Looping Iterations</th>
+        <th>Equation Iterations</th>
+        <th>Recursive Iterations</th>
+      </tr>
+      {% for i in range(list1|length) %}
+      <tr>
+        <td>{{ list1[i] }}</td>
+        <td>{{ countForLoop[i] }}</td>
+        <td>{{ countForFormula[i] }}</td>
+        <td>{{ countForRecursion[i] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
